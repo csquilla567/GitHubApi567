@@ -24,14 +24,10 @@ def commitNum(userId, repoName):
     return len(commitData)
 
 if __name__ == "__main__":
-    user = input("Enter a Github username to view their repositories ")
+    user = input("Enter Github username: ")
     print("User: " + user)
 
     repos = repoNames(user)
 
     for r in repos:
-        print("Repo: " + r + " Number of Commits: " + str(commitNum(user,r)))
-        
-        
-        
-        
+        print("Repo: " + r + " Number of Commits: " + str(commitNum(user,r))) 
