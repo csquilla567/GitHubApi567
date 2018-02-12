@@ -7,7 +7,7 @@ Created on Feb 11, 2018
 import requests
 import json
 
-def repoNum(userId):
+def repoNames(userId):
     
     r = requests.get("https://api.github.com/users/" + userId + "/repos")
     repos = []
@@ -18,6 +18,7 @@ def repoNum(userId):
     return repos
     
 def commitNum(userId, repoName):
+    
     r = requests.get('https://api.github.com/repos/' + userId + '/' + repoName + '/commits')
     commitData = json.loads(r.text)
     return len(commitData)
@@ -26,7 +27,7 @@ if __name__ == "__main__":
     user = input("Enter a Github username to view their repositories ")
     print("User: " + user)
 
-    repos = repoNum(user)
+    repos = repoNames(user)
 
     for r in repos:
         print("Repo: " + r + " Number of Commits: " + str(commitNum(user,r)))
