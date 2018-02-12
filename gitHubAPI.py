@@ -9,19 +9,21 @@ import json
 
 def repoNames(userId):
     
-    r = requests.get("https://api.github.com/users/" + userId + "/repos")
+    r = requests.get('https://api.github.com/users/' + userId + '/repos')
     repos = []
     repoData = json.loads(r.text)
     
     for info in repoData:
         repos += [info.get('name')]
     return repos
+
     
 def commitNum(userId, repoName):
     
     r = requests.get('https://api.github.com/repos/' + userId + '/' + repoName + '/commits')
     commitData = json.loads(r.text)
     return len(commitData)
+
 
 if __name__ == "__main__":
     user = input("Enter Github username: ")
@@ -30,4 +32,4 @@ if __name__ == "__main__":
     repos = repoNames(user)
 
     for r in repos:
-        print("Repo: " + r + " Number of Commits: " + str(commitNum(user,r))) 
+        print("Repo: " + r + " Number of Commits: " + str(commitNum(user, r))) 
