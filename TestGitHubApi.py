@@ -1,25 +1,33 @@
 '''
-Created on Feb 12, 2018
+Created on Feb 11, 2018
 
 @author: Caroline Squillante
 '''
-import unittest
-from gitHubAPI import repoNames, commitNum
 
-class TestGithub(unittest.TestCase):
+import requests
+import json
+
+def repoNames(userId):
     
-    def testRepo1(self):
-        repos = repoNames('csquillz')
-        self.assertIn('SSW',repos)
+    r = requests.get("https://api.github.com/users/" + userId + "/repos")
+    repos = []
+    repoData = json.loads(r.text)
+    
+    for info in repoData:
+        repos += [info.get('name')]
+    return repos
+    
+def commitNum(userId, repoName):
+    
+    r = requests.get('https://api.github.com/repos/' + userId + '/' + repoName + '/commits')
+    commitData = json.loads(r.text)
+    return len(commitData)
 
-    def testRepo2(self):
-        repos = repoNames('csquilla567')
-        self.assertIn('Triangle567',repos)
-        self.assertIn('GitHubApi567',repos)
-        
-        
-    def testNumCommits(self):
-        self.assertGreaterEqual(commitNum('csquillz','SSW'),30)
-        self.assertGreaterEqual(commitNum('csquilla567','Triangle567'),4)
-        
-        
+if __name__ == "__main__":
+    user = input("Enter a Github username: ")
+    print("User: " + user)
+
+    repos = repoNames(user)
+
+    for r in repos:
+        print("Repo: " + r + " Number of Commits: " + str(commitNum(user,r))) 
