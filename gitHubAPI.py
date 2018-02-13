@@ -2,6 +2,8 @@
 Created on Feb 11, 2018
 
 @author: Caroline Squillante
+
+gitHubAPI.py program to pull repos and number of commits per repo for a user
 '''
 
 import requests
@@ -14,7 +16,11 @@ def repoNames(userId):
     repoData = json.loads(r.text)
     
     for info in repoData:
-        repos += [info.get('name')]
+        try:
+            repos += [info.get('name')]
+        except (AttributeError):
+            print('Error: unable to find repos for this user')
+            return []
     return repos
 
     
@@ -30,6 +36,7 @@ if __name__ == "__main__":
     print("User: " + user)
 
     repos = repoNames(user)
-
-    for r in repos:
-        print("Repo: " + r + " Number of Commits: " + str(commitNum(user, r))) 
+    
+    if len(repos) > 0:
+        for r in repos:
+            print("Repo: " + r + " Number of Commits: " + str(commitNum(user, r))) 
