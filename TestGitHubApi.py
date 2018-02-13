@@ -45,9 +45,9 @@ class TestGithub(unittest.TestCase):
         self.assertGreaterEqual(commitNum('karuaan','MusicMeld'),6)
         self.assertGreaterEqual(commitNum('karuaan','Ratemycourse.com'),6)
         
-    #def testGitHubApi(self): 
-        
-           
+    def testInvalidInfo(self):
+        allRepos = repoNames('csquillz9304')
+        self.assertEqual(len(allRepos), 0)
         
         
         
