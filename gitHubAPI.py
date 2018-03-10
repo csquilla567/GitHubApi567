@@ -15,14 +15,14 @@ def get_username(userId):
     if response.ok:
         return response
     else:
-        return None
+        return json.dumps({'error': 'none'})
 
 def get_repo_commits(userId, repoName):
     response = requests.get('https://api.github.com/repos/' + userId + '/' + repoName + '/commits')
     if response.ok:
         return response
     else:
-        return None
+        return json.dumps({'error': 'none'})
 
 def repoNames(userId):
     
