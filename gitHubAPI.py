@@ -12,17 +12,11 @@ import json
 
 def get_username(userId):
     response = requests.get('https://api.github.com/users/' + userId + '/repos')
-    if response.ok:
-        return response
-    else:
-        return json.dumps({'error': 'none'})
+    return response
 
 def get_repo_commits(userId, repoName):
     response = requests.get('https://api.github.com/repos/' + userId + '/' + repoName + '/commits')
-    if response.ok:
-        return response
-    else:
-        return json.dumps({'error': 'none'})
+    return response
 
 def repoNames(userId):
     
