@@ -4,29 +4,28 @@ Created on Feb 12, 2018
 @author: Caroline Squillante
 '''
 import unittest
+import json
 from gitHubAPI import repoNames, commitNum
 from unittest.mock import Mock, patch
 
 class TestGithub(unittest.TestCase):
     @patch('TestGitHubApi.repoNames')
     def testRepo1(mock_repo_names, self):
-        fake_json = {'name': 'SSW'}
-        mock_repo_names.return_value = Mock()
-        mock_repo_names.return_value.json.return_value = [fake_json]
+        mock_repo_names.return_value = Mock(['SSW'])
         
         allRepos = repoNames('csquillz')
+        #print(str(allRepos))
         #self.assertTrue(mock_repo_names.called)
         self.assertGreaterEqual(len(allRepos), 1)
         self.assertIn('SSW',allRepos)
 
     @patch('TestGitHubApi.repoNames')
     def testRepo2(mock_repo_names, self):
-        fake_json = [{'name': 'Triangle567'},
-                     {'name': 'GitHubApi567'},
-                     {'name': 'example-python'},
-                     {'name': 'sq-com_example_standard-sqscanner-travis'}]
-        mock_repo_names.return_value = Mock()
-        mock_repo_names.return_value.json.return_value = fake_json
+        fake_json = ['Triangle567',
+                     'GitHubApi567',
+                     'example-python',
+                     'sq-com_example_standard-sqscanner-travis']
+        mock_repo_names.return_value = Mock(fake_json)
         
         allRepos = repoNames('csquilla567')
         #self.assertTrue(mock_repo_names.called)
@@ -36,15 +35,14 @@ class TestGithub(unittest.TestCase):
 
     @patch('TestGitHubApi.repoNames')
     def testRepo3(mock_repo_names, self):
-        fake_json = [{'name': 'ssw555CKMM2018Spring'},
-                     {'name': 'CS-546-Web-Programming'},
-                     {'name': 'karuaan.github.io'},
-                     {'name': 'Android-Projects'},
-                     {'name': 'Systems-Programming-'},
-                     {'name': 'MusicMeld'},
-                     {'name': 'Ratemycourse.com'}]
-        mock_repo_names.return_value = Mock()
-        mock_repo_names.return_value.json.return_value = fake_json
+        fake_json = ['ssw555CKMM2018Spring',
+                     'CS-546-Web-Programming',
+                     'karuaan.github.io',
+                     'Android-Projects',
+                     'Systems-Programming-',
+                     'MusicMeld',
+                     'Ratemycourse.com']
+        mock_repo_names.return_value = Mock(fake_json)
         
         allRepos = repoNames('karuaan')
 
